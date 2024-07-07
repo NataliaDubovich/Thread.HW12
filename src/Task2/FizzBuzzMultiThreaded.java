@@ -14,14 +14,16 @@ public class FizzBuzzMultiThreaded {
 
         Thread threadA = new Thread(() -> {
             while (true) {
-                int current = number.get();
-                if (current > n) break;
-                if (current % 3 == 0 && current % 5 != 0) {
-                    try {
-                        queue.put("fizz");
-                        //number.incrementAndGet();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                synchronized (queue) {
+                    int current = number.get();
+                    if (current > n) break;
+                    if (current % 3 == 0 && current % 5 != 0) {
+                        try {
+                            queue.put("fizz");
+                            number.incrementAndGet();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -29,14 +31,16 @@ public class FizzBuzzMultiThreaded {
 
         Thread threadB = new Thread(() -> {
             while (true) {
-                int current = number.get();
-                if (current > n) break;
-                if (current % 5 == 0 && current % 3 != 0) {
-                    try {
-                        queue.put("buzz");
-                        number.incrementAndGet();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                synchronized (queue) {
+                    int current = number.get();
+                    if (current > n) break;
+                    if (current % 5 == 0 && current % 3 != 0) {
+                        try {
+                            queue.put("buzz");
+                            number.incrementAndGet();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -44,14 +48,16 @@ public class FizzBuzzMultiThreaded {
 
         Thread threadC = new Thread(() -> {
             while (true) {
-                int current = number.get();
-                if (current > n) break;
-                if (current % 3 == 0 && current % 5 == 0) {
-                    try {
-                        queue.put("fizzbuzz");
-                        number.incrementAndGet();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                synchronized (queue) {
+                    int current = number.get();
+                    if (current > n) break;
+                    if (current % 3 == 0 && current % 5 == 0) {
+                        try {
+                            queue.put("fizzbuzz");
+                            number.incrementAndGet();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -68,8 +74,8 @@ public class FizzBuzzMultiThreaded {
                     } else {
                         System.out.print(count + ", ");
                     }
-                        count++;
-                        number.incrementAndGet();
+                    count++;
+                    number.incrementAndGet();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

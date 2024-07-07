@@ -12,6 +12,7 @@ public class TimeDisplay {
         executorService.scheduleAtFixedRate(new SecondTask(), 1, 1, TimeUnit.SECONDS);
         executorService.scheduleAtFixedRate(new FiveSecondTask(), 5, 5, TimeUnit.SECONDS);
     }
+
     static class SecondTask implements Runnable {
         private final long startTime;
 
