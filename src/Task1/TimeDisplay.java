@@ -10,7 +10,7 @@ public class TimeDisplay {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
 
         executorService.scheduleAtFixedRate(new SecondTask(), 1, 1, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(new FiveSecondTask(), 1, 5, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(new FiveSecondTask(), 5, 5, TimeUnit.SECONDS);
     }
     static class SecondTask implements Runnable {
         private final long startTime;
